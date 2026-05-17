@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      // Store a bcrypt hash, not the raw password.
+      // Maybe I will implement auth later if you want.
+      //My idea is to use bcrypt for hashing and storing passwords.
       required: true,
     },
   },

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: snappass-backend
+    restart: unless-stopped
+    ports:
+      - "5000:3000"
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      AI_SERVICE_URL: http://python-ai-service:8000
+      UPLOAD_DIR: uploads
+      MAX_FILE_SIZE: 10485760
+      CORS_ORIGIN: http://localhost:5173
+    depends_on:
+      - python-ai-service
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    container_name: snappass-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+    depends_on:
+      - backend
+
+  python-ai-service:
+    build: ./python-ai-service
+    container_name: snappass-python-ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000

@@ -180,6 +180,24 @@ AI service runs at [http://localhost:8000](http://localhost:8000).
 
 ---
 
+## 🐳 Docker (Compose)
+
+Run all services (frontend, backend, python-ai-service, MongoDB) with one command:
+
+```bash
+docker compose up --build
+```
+
+Default ports:
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5000
+- Python AI: http://localhost:8000
+- MongoDB: mongodb://localhost:27017
+
+Note: the python-ai-service container expects a `main.py` entrypoint in `python-ai-service/`.
+
+---
+
 ## 🗺️ App Flow (UI)
 
 ```
@@ -222,7 +240,7 @@ Home
 ### Frontend (`frontend/.env`)
 
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ### Backend (`backend/.env`)
