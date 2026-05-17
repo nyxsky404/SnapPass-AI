@@ -1,4 +1,4 @@
-# 🤖 SnapPass AI — Python AI Service
+# SnapPass AI — Python AI Service
 
 The Python AI microservice for SnapPass AI. Built with Flask, it handles all image processing tasks — background removal, face centering, DPI optimisation, and A4 sheet generation.
 
@@ -6,13 +6,13 @@ Runs on `http://localhost:8000` and is called by the Express backend.
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Python 3.9 or higher *(3.9 preferred)*
 
 ---
 
-## 🚀 Local Setup
+## Local Setup
 
 ### 1. Navigate to the service folder
 
@@ -20,7 +20,7 @@ Runs on `http://localhost:8000` and is called by the Express backend.
 cd python-ai-service
 ```
 
-### 2. Create and activate a virtual environment
+### 2.Create and activate a virtual environment
 
 ```bash
 # Create
@@ -33,13 +33,13 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### 3.Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Create your `.env` file
+### 4.Create your `.env` file
 
 ```env
 PORT=8000
@@ -48,7 +48,7 @@ UPLOAD_DIR=uploads
 MAX_FILE_MB=10
 ```
 
-### 5. Start the service
+### 5.Start the service
 
 ```bash
 python main.py
@@ -58,7 +58,7 @@ Service will be running at `http://localhost:8000`
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### `GET /health`
 
@@ -82,8 +82,8 @@ Removes the background from a portrait photo and replaces it with a solid colour
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `image` | File | ✅ Yes | Portrait photo (JPEG, PNG, WEBP) |
-| `background_colour` | Text | ❌ No | Colour name or hex. Default: `white` |
+| `image` | File |  Yes | Portrait photo (JPEG, PNG, WEBP) |
+| `background_colour` | Text |  No | Colour name or hex. Default: `white` |
 
 **Supported `background_colour` values:**
 
@@ -166,22 +166,22 @@ This maps to `config.aiServiceUrl` in `backend/src/config/app.config.js`.
 
 ---
 
-## 🧪 Testing the Service
+## Testing the Service
 
 ### Using Postman
 
-1. Method: `POST`
-2. URL: `http://localhost:8000/remove-bg`
-3. Body → `form-data`
-4. Add field: `image` → type `File` → select your photo
-5. Add field: `background_colour` → type `Text` → `white`
-6. Click **Send**
+1.Method: `POST`
+2.URL: `http://localhost:8000/remove-bg`
+3.Body → `form-data`
+4.Add field: `image` → type `File` → select your photo
+5.Add field: `background_colour` → type `Text` → `white`
+6.Click **Send**
 
 You will receive the background-removed PNG directly in the response.
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 python-ai-service/
@@ -194,15 +194,15 @@ python-ai-service/
     ├── routes/
     │   └── process_routes.py      # All Flask endpoint definitions
     └── services/
-        ├── bg_remove.py           # Background removal using rembg ✅
-        ├── face_center.py         # Face detection using OpenCV 🚧
-        ├── dpi_optimizer.py       # DPI resize using Pillow 🚧
-        └── sheet_generator.py     # A4 sheet tiling using Pillow 🚧
+        ├── bg_remove.py           # Background removal using rembg
+        ├── face_center.py         # Face detection using OpenCV
+        ├── dpi_optimizer.py       # DPI resize using Pillow
+        └── sheet_generator.py     # A4 sheet tiling using Pillow
 ```
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 | Package | Purpose |
 |---------|---------|
@@ -215,7 +215,7 @@ python-ai-service/
 
 ---
 
-## ⚠️ Common Errors
+## Common Errors
 
 **`rembg` first run is slow:**
 The first request downloads the U2Net model (~170MB). Subsequent requests are fast.
@@ -231,7 +231,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Want to implement the remaining services? Check the main [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 
