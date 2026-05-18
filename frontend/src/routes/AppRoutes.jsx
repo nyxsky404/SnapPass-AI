@@ -19,12 +19,12 @@ function AppRoutes({darkMode, toggleTheme}) {
       <Suspense fallback={<DelayedFallback delayMs={250} />}>
         <Routes>
           <Route path="/" element={<HomePage darkMode={darkMode} toggleTheme={toggleTheme}/>} />
-          <Route path="/upload"       element={<UploadPage />} />
-          <Route path="/editor"       element={<EditorPage />} />
-          <Route path="/print-preview" element={<PrintPreviewPage />} />
-          <Route path="/admin"        element={<AdminDashboard />} />
+          <Route path="/upload"       element={<UploadPage darkMode={darkMode} toggleTheme={toggleTheme}/>} />
+          <Route path="/editor"       element={<EditorPage darkMode={darkMode} toggleTheme={toggleTheme}/>} />
+          <Route path="/print-preview" element={<PrintPreviewPage darkMode={darkMode} toggleTheme={toggleTheme}/>} />
+          <Route path="/admin"        element={<AdminDashboard darkMode={darkMode} toggleTheme={toggleTheme}/>} />
           {/* Fallback — redirect unknown paths to home */}
-          <Route path="*"             element={<Navigate to="/" replace />} />
+          <Route path="*"             element={<Navigate to="/" replace darkMode={darkMode} toggleTheme={toggleTheme}/>} />
         </Routes>
       </Suspense>
     </RouteErrorBoundary>

@@ -111,8 +111,21 @@
 
 .hero__photo-frame {
   aspect-ratio: 3/4;
-  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 50%, #fef3c7 100%);
   border-radius: var(--radius-md);
+}
+.hero__photo-frame-light{
+    background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 50%, #fef3c7 100%);
+}
+.hero__photo-frame-dark{
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(69, 66, 9, 0.206) 0%,
+      #353824bb 60%,
+      rgb(69, 66, 9)100%
+    );
+
 }
 
 .hero__ai-badge {
