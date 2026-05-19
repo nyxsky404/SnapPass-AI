@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./HomePage.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './HomePage.css';
+import { motion } from 'framer-motion';
 
 import { Upload, Sparkles, Settings2, Download } from "lucide-react";
 
@@ -9,6 +10,19 @@ import AIShowcaseSection from "../components/HomePage/AIShowcaseSection";
 import StepsSection from "../components/HomePage/StepsSection";
 import FeaturesSection from "../components/HomePage/FeaturesSection";
 import CTABanner from "../components/HomePage/CTABanner";
+
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+      delay
+    }
+  })
+};
 
 /**
  * HomePage — landing page with hero section and feature highlights.
@@ -130,19 +144,233 @@ function HomePage() {
   return (
     <div className="home-page">
       {/* ── Hero ── */}
-      <HeroSection />
+      <section className="hero" aria-labelledby="hero-title">
+        <motion.div
+          className="hero__inner"
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          custom={0.1}
+        >
+          <span className="badge badge-blue">Open Source · Free to Use</span>
+          <h1 id="hero-title" className="hero__title">
+            Passport Photos,<br />
+            <span className="hero__title-highlight">Powered by AI</span>
+          </h1>
+          <p className="hero__subtitle">
+            Upload once. Get a perfectly centred, background-removed, print-ready
+            passport photo sheet in seconds.
+          </p>
+          <div className="hero__actions">
+            <Link to="/upload" className="btn btn-primary hero__btn-primary">
+              Upload Your Photo
+            </Link>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="hero__visual"
+          aria-hidden="true"
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          custom={0.3}
+        >
+          <div className="hero__photo-mock">
+            <div className="hero__photo-frame" />
+            <div className="hero__photo-frame" />
+            <div className="hero__photo-frame" />
+            <div className="hero__photo-frame" />
+          </div>
+          <span className="hero__ai-badge"> AI Processed</span>
+        </motion.div>
+      </section>
 
       {/* ── Showcase Section ── */}
-      <AIShowcaseSection chips={chips} iconMap={iconMap} />
+      <section
+        className="ai-showcase"
+        aria-labelledby="ai-showcase-title"
+      >
+        {/* left  text */}
+        <motion.div
+          className="ai-showcase__content"
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          custom={0.1}
+        >
+          <span className="badge badge-blue">
+            AI Powered Workflow
+          </span>
+
+          <h2
+            id="ai-showcase-title"
+            className="section-title"
+          >
+            From Simple Upload
+            <br />
+            to Print-Ready Sheet
+          </h2>
+
+          <p className="section-subtitle">
+            Upload a portrait photo and let AI automatically remove the background,
+            align your face and generate a professional passport photo sheet.
+          </p>
+
+          {/* feature */}
+          <div className="ai-showcase__chips">
+            {chips.map(({ icon, label }) => (
+              <div key={label} className="ai-chip">
+                <span className="ai-chip__icon" aria-hidden="true">
+                  {iconMap[icon]}
+                </span>
+                {label}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* images */}
+        <div className="ai-showcase__visual">
+          {/* original */}
+          <motion.div
+            className="showcase-photo-card"
+            variants={fadeUpVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0.2}
+          >
+            <img
+              src="/before.png"
+              alt="Uploaded portrait"
+              className="showcase-photo-card__image"
+            />
+          </motion.div>
+
+          {/* print sheet */}
+          <motion.div
+            className="showcase-sheet-card"
+            variants={fadeUpVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0.4}
+          >
+            <img
+              src="/after.png"
+              alt="Printable passport sheet"
+              className="showcase-sheet-card__image"
+            />
+            <div className="showcase-sheet-card__badge">
+              Print Ready
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ── How it Works ── */}
-      <StepsSection steps={steps} />
+      <section className="steps-section" aria-labelledby="steps-title">
+        <motion.div
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0.1}
+        >
+          <h2 id="steps-title" className="section-title text-center">How It Works</h2>
+          <p className="section-subtitle text-center">Four simple steps to a print-ready sheet</p>
+        </motion.div>
+
+        <div className="steps-grid">
+          {steps.map(({ label, icon, subtitle }, idx) => (
+            <motion.div
+              key={label}
+              className="step-card"
+              variants={fadeUpVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={idx * 0.15}
+            >
+              <span className="step-card__icon">{icon}</span>
+              <div className="step-card__content">
+                <p className="step-card__label">{label}</p>
+                <p className="step-card__subtitle">{subtitle}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* ── Features ── */}
-      <FeaturesSection features={features} iconMap={iconMap} />
+      <section className="features-section" aria-labelledby="features-title">
+        <motion.div
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0.1}
+        >
+          <h2 id="features-title" className="section-title text-center">Features</h2>
+          <p className="section-subtitle text-center">Everything you need right out of the box</p>
+        </motion.div>
+
+        <div className="features-grid">
+          {features.map(({ icon, title, desc, image, tag }, idx) => (
+            <motion.div
+              key={title}
+              className="feature-card card"
+              variants={fadeUpVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={idx * 0.15}
+            >
+              <div className="feature-card__preview">
+                <img
+                  src={image}
+                  alt={title}
+                  className="feature-card__image"
+                  loading="lazy"
+                />
+                <span className="feature-card__tag">
+                  {tag}
+                </span>
+              </div>
+              <span className="feature-card__icon" aria-hidden="true">
+                {iconMap[icon]}
+              </span>
+              <h3 className="feature-card__title">
+                {title}
+              </h3>
+              <p className="feature-card__desc">
+                {desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* ── CTA Banner ── */}
-      <CTABanner />
+      <motion.section
+        className="cta-banner"
+        aria-label="Call to action"
+        variants={fadeUpVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        custom={0.1}
+      >
+        <div className="cta-banner__inner">
+          <h2 className="cta-banner__title">Ready to generate your passport photo?</h2>
+          <p className="cta-banner__subtitle">No account required. Completely free and open-source.</p>
+          <Link to="/upload" className="btn btn-primary">Get Started →</Link>
+        </div>
+      </motion.section>
     </div>
   );
 }

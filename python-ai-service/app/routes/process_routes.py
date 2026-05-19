@@ -3,6 +3,7 @@ import uuid
 from flask import Blueprint, request, jsonify, send_file
 import config
 from app.services.bg_remove import remove_background
+from app.services.face_center import center_face
 process_bp= Blueprint("process", __name__)
 
 
@@ -27,6 +28,7 @@ def remove_bg():
     try:
         image_bytes= file.read()
         result_bytes= remove_background(image_bytes, bg_colour)
+        image_bytes = center_face(image_bytes)
 
         filename= f"{uuid.uuid4().hex}.png"
         save_path= os.path.join(config.UPLOAD_DIR, filename)
