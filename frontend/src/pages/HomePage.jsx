@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./HomePage.css";
-import { motion } from "framer-motion";
 
 import { Upload, Sparkles, Settings2, Download } from "lucide-react";
 
@@ -11,7 +9,6 @@ import StepsSection from "../components/HomePage/StepsSection";
 import FeaturesSection from "../components/HomePage/FeaturesSection";
 import CTABanner from "../components/HomePage/CTABanner";
 
-import { fadeUpVariant } from "../animations/variants.js";
 
 /**
  * HomePage — landing page with hero section and feature highlights.
