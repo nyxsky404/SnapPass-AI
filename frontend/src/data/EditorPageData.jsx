@@ -14,11 +14,10 @@ export const iconMap = {
   ),
 };
 
-export const backgroundHexMap =
-  {
-    white: "#ffffff",
-    "off-white": "#f5f0e8",
-    "light-grey": "#d1d5db",
-    "light-blue": "#bfdbfe",
-    "light-red": "#fecaca",
-  }[background] || "#ffffff";
+export const backgroundHexMap = {
+  white: "#ffffff",
+  "off-white": "#f5f0e8",
+  "light-grey": "#d1d5db",
+  "light-blue": "#bfdbfe",
+  "light-red": "#fecaca",
+};
