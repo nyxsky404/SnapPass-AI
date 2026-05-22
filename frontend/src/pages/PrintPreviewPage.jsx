@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
  * Shows the processed photo in a simulated A4 sheet grid.
  * User picks quantity, then downloads or prints the sheet.
  */
-function PrintPreviewPage() {
+function PrintPreviewPage({darkMode, toggleTheme}) {
   const { state } = useLocation();
 
   const [quantity, setQuantity] = useState(6);
@@ -46,6 +46,8 @@ function PrintPreviewPage() {
         title="No processed photo available"
         description="Upload and process a photo before accessing print preview."
         buttonText="Upload Photo"
+        darkMode={darkMode}
+        toggleTheme={toggleTheme}
       />
     );
   }

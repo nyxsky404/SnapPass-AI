@@ -6,7 +6,7 @@ import './AdminDashboard.css';
  * Shows summary stats and a table of recent uploads.
  * Backend integration pending — contributors welcome!
  */
-function AdminDashboard() {
+function AdminDashboard({darkMode, toggleTheme}) {
   const [activeTab, setActiveTab] = useState('overview');
 
   const stats = [
@@ -61,7 +61,7 @@ function AdminDashboard() {
   const tabs = ['overview', 'uploads', 'settings'];
 
   return (
-    <div className="admin-page page-content">
+    <div className={`admin-page page-content ${darkMode? "admin-page-dark" : ""}`}>
       <div className="admin-page__header">
         <div>
           <h1 className="section-title">Admin Dashboard</h1>

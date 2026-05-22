@@ -4,7 +4,8 @@ import { fadeUpVariant } from "../../animations/variants.js";
 
 const AIShowcaseSection = ({ darkMode, toggleTheme, chips, iconMap }) => {
   return (
-    <section className="ai-showcase" aria-labelledby="ai-showcase-title">
+    <section className={`ai-showcase ${ darkMode? "ai-showcase-dark": "ai-showcase-light" }`
+    } aria-labelledby="ai-showcase-title">
       {/* left  text */}
       <motion.div
         className="ai-showcase__content"

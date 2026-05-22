@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
  * UploadPage — Step 1 of the flow.
  * User selects a photo; we create a local object URL and navigate to EditorPage.
  */
-function UploadPage() {
+function UploadPage({darkMode, toggleTheme}) {
   const navigate = useNavigate();
   const { uploadFile, uploadedFile, isUploading, error, } = usePhotoUpload();
 
@@ -64,7 +64,8 @@ function UploadPage() {
   };
 
   return (
-    <div className="upload-page page-content">
+    <div className={`upload-page ${darkMode?"upload-page-dark": "" }`}>
+      
       <motion.div
         className="upload-page__header"
         variants={fadeUpVariant}

@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
  * Shows preview of uploaded photo, lets user configure background + size,
  * then triggers AI processing before navigating to PrintPreviewPage.
  */
-function EditorPage() {
+function EditorPage({darkMode, toggleTheme}) {
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -94,6 +94,8 @@ function EditorPage() {
         title="No photo selected yet"
         description="Please upload a passport photo before accessing the editor."
         buttonText="Go to Upload"
+        darkMode={darkMode}
+        toggleTheme={toggleTheme}
       />
     );
   }
@@ -109,7 +111,7 @@ function EditorPage() {
   };
 
   return (
-    <div className="editor-page page-content">
+    <div className={`editor-page ${darkMode? "editor-page-dark": "" }`}>
       <motion.div
         className="editor-page__header"
         variants={fadeUpVariant}
