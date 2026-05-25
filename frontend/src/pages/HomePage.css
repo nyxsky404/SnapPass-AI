@@ -1118,3 +1118,19 @@
     bottom: 18px;
   }
 }
+
+/* upscroll button dark mode */
+[data-theme='dark'] .back-to-top {
+  background: linear-gradient(135deg, #facc15, #e8c500);
+  color: #0c0a00;
+}
+
+/* banner dark mode */
+[data-theme='dark'] .cta-banner {
+  background: linear-gradient(120deg, #9a7d0a, #4a3600);
+}
+
+[data-theme='dark'] .cta-banner .btn-primary {
+  background: #facc15;
+  color: #000;
+}
