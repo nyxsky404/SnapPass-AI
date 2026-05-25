@@ -37,7 +37,7 @@ def remove_bg():
         filename= f"{uuid.uuid4().hex}.png"
         save_path= os.path.join(config.UPLOAD_DIR, filename)
         with open(save_path, "wb") as f:
-            f.write(result_bytes)
+            f.write(final_image)
 
         return send_file(
             save_path,
