@@ -103,62 +103,80 @@ CLOUDINARY_API_SECRET=
 ##  Folder Structure
 
 backend/
-├── server.js                        # Entry point
-├── .env                             # Local environment variables (not committed)
-├── .env.example                     # Template for .env
-├── backend-rules.md                 # Backend coding rules
-├── Dockerfile                       # Docker configuration
 ├── docs/
-│   ├── authentication.md            # Auth flow documentation
-│   └── errorhandling.md             # Error handling documentation
-└── src/
-    ├── app.js                       # Express app setup, middleware, routes
-    ├── config/
-    │   ├── config.js                # Reads and validates .env variables
-    │   └── db.js                    # MongoDB connection setup
-    ├── controllers/
-    │   ├── auth.controller.js       # Register, login, logout
-    │   ├── image.controller.js      # Forwards to Python AI service
-    │   ├── print.controller.js      # Generates A4 print sheet
-    │   └── upload.controller.js     # Handles photo upload logic
-    ├── dao/
-    │   ├── passwordResetOtp.dao.js  # OTP database queries
-    │   └── user.dao.js              # User database queries
-    ├── middleware/
-    │   ├── auth.middleware.js       # JWT authentication check
-    │   ├── error.middleware.js      # Global error handler
-    │   ├── rateLimit.middleware.js  # Rate limiting for auth routes
-    │   ├── upload.middleware.js     # Multer file upload config
-    │   └── validate.middleware.js   # express-validator error handler
-    ├── models/
-    │   ├── passwordResetOtp.model.js # OTP MongoDB schema
-    │   ├── printSheet.model.js       # Print sheet MongoDB schema
-    │   ├── processedImage.model.js   # Processed image MongoDB schema
-    │   ├── upload.model.js           # Upload MongoDB schema
-    │   ├── UploadHistory.js          # Upload history MongoDB schema
-    │   └── user.model.js             # User MongoDB schema
-    ├── routes/
-    │   ├── auth.routes.js           # POST /api/auth/*
-    │   ├── image.routes.js          # POST /api/process
-    │   ├── print.routes.js          # POST /api/print/*
-    │   └── upload.routes.js         # POST /api/upload
-    ├── service/
-    │   ├── auth.service.js          # Auth business logic
-    │   ├── cloudinary.service.js    # Cloudinary upload logic
-    │   └── passwordResetOtp.service.js # OTP logic
-    ├── utils/
-    │   ├── catchAsync.js            # Async error wrapper
-    │   ├── generateOTP.js           # OTP generator
-    │   ├── photoPresets.js          # Passport photo size presets
-    │   ├── sendEmail.js             # Email sender using Resend
-    │   ├── setToken.js              # JWT cookie setter
-    │   └── errors/
-    │       ├── AppError.js          # Base error class
-    │       ├── AuthError.js         # Auth specific errors
-    │       ├── NotFoundError.js     # 404 errors
-    │       └── ValidationError.js   # Validation errors
-    └── validation/
-        └── auth.validation.js       # express-validator rules
+│   ├── authentication.md
+│   └── errorhandling.md
+│
+├── src/
+│   ├── config/
+│   │   ├── config.js
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── image.controller.js
+│   │   ├── print.controller.js
+│   │   └── upload.controller.js
+│   │
+│   ├── dao/
+│   │   ├── passwordResetOtp.dao.js
+│   │   └── user.dao.js
+│   │
+│   ├── middlewares/
+│   │   ├── auth.middleware.js
+│   │   ├── error.middleware.js
+│   │   ├── rateLimit.middleware.js
+│   │   ├── upload.middleware.js
+│   │   └── validate.middleware.js
+│   │
+│   ├── models/
+│   │   ├── passwordResetOtp.model.js
+│   │   ├── printSheet.model.js
+│   │   ├── processedImage.model.js
+│   │   ├── upload.model.js
+│   │   ├── uploadHistory.model.js
+│   │   └── user.model.js
+│   │
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── image.routes.js
+│   │  ├── print.routes.js
+│   │   └── upload.routes.js
+│   │
+│   ├── services/
+│   │   ├── auth.service.js
+│   │   ├── cloudinary.service.js
+│   │   └── passwordResetOtp.service.js
+│   │
+│   ├── utils/
+│   │   ├── catchAsync.js
+│   │   ├── generateOTP.js
+│   │   ├── photoPresets.js
+│   │   ├── sendEmail.js
+│   │   └── setToken.js
+│   │
+│   ├── errors/
+│   │   ├── AppError.js
+│   │   ├── AuthError.js
+│   │   ├── NotFoundError.js
+│   │   └── ValidationError.js
+│   │
+│   ├── validation/
+│   │   └── auth.validation.js
+│   │
+│   └── app.js
+│
+├── uploads/
+│
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── backend-rules.md
+├── package.json
+├── package-lock.json
+├── server.js
+└── vercel.json
 
 ## API Endpoints
 
