@@ -184,6 +184,8 @@ AI service runs at [http://localhost:8000](http://localhost:8000).
 
 Run all services (frontend, backend, python-ai-service, MongoDB) with one command:
 
+Note: the Docker setup is intended for local development and testing; production is handled via Vercel.
+
 ```bash
 docker compose up --build
 ```
