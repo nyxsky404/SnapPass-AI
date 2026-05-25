@@ -8,13 +8,21 @@
   gap: var(--space-xl);
   align-items: start;
 }
+.print-preview-toggle-dark{
+  width: 100%;
+  height: 100vh;
+  background:
+    radial-gradient(1400px 700px at 10% 10%, rgba(255, 233, 77, 0.32), transparent 35%),
+    radial-gradient(1000px 600px at 90% 10%, rgba(255, 191, 0, 0.22), transparent 40%),
+    linear-gradient(145deg, #000000 10%, #0f0f0f 50%, #1a1200 100%);
+}
 
 /* Sheet */
 .print-page__sheet { display: flex; flex-direction: column; gap: var(--space-md); }
 .print-page__sheet-label {
   font-size: var(--font-size-sm);
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: var(--color-text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -66,10 +74,40 @@
   font-weight: 600;
   color: var(--color-text);
 }
+.print-info-value-dark{
+  color: white;
+}
 
 .print-page__back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
   justify-content: center;
   font-size: var(--font-size-sm);
+}
+.print-page__back-btn-dark:hover {
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+background: transparent;
+  color: white;
+}
+
+.print-page__back-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.print-page__back-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (max-width: 768px) {
@@ -107,4 +145,70 @@
     size: A4 portrait;
     margin: 10mm;
   }
+}
+.password-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.password-input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.password-input:focus {
+  border-color: #666;
+}
+
+.password-meter {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.password-meter__fill {
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.password-meter__fill--weak {
+  background: #ef4444;
+}
+
+.password-meter__fill--medium {
+  background: #f97316;
+}
+
+.password-meter__fill--strong {
+  background: #eab308;
+}
+
+.password-meter__fill--excellent {
+  background: #22c55e;
+}
+
+.password-feedback {
+  font-size: 13px;
+}
+
+.password-feedback--weak {
+  color: #dc2626;
+}
+
+.password-feedback--medium {
+  color: #ea580c;
+}
+
+.password-feedback--strong {
+  color: #ca8a04;
+}
+
+.password-feedback--excellent {
+  color: #16a34a;
 }

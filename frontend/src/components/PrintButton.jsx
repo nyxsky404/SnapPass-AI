@@ -11,10 +11,10 @@ import './PrintButton.css';
  *   disabled   (bool)   — disables the button
  *   label      (string) — button text (default: "Generate & Download Sheet")
  */
-function PrintButton({ onClick, isLoading = false, disabled = false, label = 'Generate & Download Sheet' }) {
+function PrintButton({ onClick, isLoading = false, darkMode, toggleTheme, disabled = false, label = 'Generate & Download Sheet' }) {
   return (
     <button
-      className={`print-btn${isLoading ? ' print-btn--loading' : ''}`}
+      className={`print-btn ${darkMode? isLoading ? ' print-btn--loading-dark' : ' print-btn-dark' : ''}`}
       onClick={onClick}
       disabled={disabled || isLoading}
       aria-label={isLoading ? 'Generating sheet, please wait…' : label}
@@ -27,7 +27,14 @@ function PrintButton({ onClick, isLoading = false, disabled = false, label = 'Ge
         </>
       ) : (
         <>
-          <span className="print-btn__icon" aria-hidden="true">🖨️</span>
+          <span className="print-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="M6 9V4h12v5" />
+              <rect x="4" y="10" width="16" height="7" rx="2" />
+              <path d="M7 17v3h10v-3" />
+              <path d="M9 13h6" />
+            </svg>
+          </span>
           {label}
         </>
       )}

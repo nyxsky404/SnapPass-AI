@@ -41,7 +41,23 @@ export const processImage = async (req, res, next) => {
     form.append("background_colour", backgroundColour);
     form.append("photo_size_preset", photoSizePreset);
 
-    const aiResponse = await axios.post(`${config.aiServiceUrl}/process`, form, {
+    const shouldCleanupLocal = Boolean(
+      config.cloudinary?.cloudName &&
+      config.cloudinary?.apiKey &&
+      config.cloudinary?.apiSecret
+    );
+
+    if (shouldCleanupLocal) {
+      res.on("finish", async () => {
+        try {
+          await fs.promises.unlink(filePath);
+        } catch (_error) {
+          // Best-effort cleanup, ignore failures.
+        }
+      });
+    }
+
+    const aiResponse = await axios.post(`${config.aiServiceUrl}/remove-bg`, form, {
       headers: form.getHeaders(),
       responseType: "arraybuffer",
     });

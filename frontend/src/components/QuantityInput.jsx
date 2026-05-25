@@ -10,7 +10,7 @@ import './QuantityInput.css';
  *   min      (number)      — minimum value (default 1)
  *   max      (number)      — maximum value (default 24)
  */
-function QuantityInput({ value = 6, onChange, min = 1, max = 24 }) {
+function QuantityInput({ darkMode, toggleTheme, value = 6, onChange, min = 1, max = 24 }) {
   const decrement = () => {
     if (value > min) onChange && onChange(value - 1);
   };
@@ -28,7 +28,16 @@ function QuantityInput({ value = 6, onChange, min = 1, max = 24 }) {
 
   return (
     <div className="qty-input">
-      <span className="qty-input__label">Quantity per Sheet</span>
+      <span className="qty-input__label">
+        <span className="qty-input__label-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <rect x="4" y="6" width="16" height="12" rx="3" />
+            <path d="M8 12h8" />
+            <path d="M12 9v6" />
+          </svg>
+        </span>
+        Quantity per Sheet
+      </span>
       <div className="qty-input__controls">
         <button
           className="qty-input__btn"
@@ -39,7 +48,7 @@ function QuantityInput({ value = 6, onChange, min = 1, max = 24 }) {
           −
         </button>
         <input
-          className="qty-input__field"
+          className={`qty-input__field ${darkMode ? 'qty-input__field-dark' : ''}`}
           type="number"
           value={value}
           min={min}
