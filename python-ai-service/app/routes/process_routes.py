@@ -26,7 +26,7 @@ def remove_bg():
 
     bg_colour = request.form.get("background_colour", "white")
 
-    preset = request.form.get("preset", "35x45")
+    preset = request.form.get("preset") or request.form.get("photo_size_preset") or "35x45"
 
     try:
         image_bytes= file.read()
