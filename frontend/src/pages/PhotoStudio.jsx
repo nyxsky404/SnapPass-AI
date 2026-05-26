@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./PhotoStudio.css";
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations/translations';
 
 function PhotoStudio() {
+    const { language } = useLanguage();
+    const t = translations[language];
     const [imageSrc, setImageSrc] = useState(null);
     const [fileName, setFileName] = useState("edited-photo.png");
 
@@ -65,8 +69,8 @@ function PhotoStudio() {
     return (
         <div className="photo-studio-page">
             <div className="studio-header">
-                <h1 className="section-title">Photo <span className="text-highlight">Studio</span></h1>
-                <p className="section-subtitle">Quickly adjust lighting, contrast, and color for the perfect passport photo.</p>
+                <h1 className="section-title">{t.photoStudio.split(' ')[0]} <span className="text-highlight">{t.photoStudio.split(' ')[1]}</span></h1>
+                <p className="section-subtitle">{t.photoStudioSubtitle}</p>
             </div>
 
             <div className="studio-workspace">
@@ -78,14 +82,14 @@ function PhotoStudio() {
                                 <polyline points="17 8 12 3 7 8"></polyline>
                                 <line x1="12" y1="3" x2="12" y2="15"></line>
                             </svg>
-                            <p>Click to upload a photo</p>
-                            <span className="upload-hint">JPG, PNG, WEBP</span>
+                            <p>{t.clickUploadPhoto}</p>
+                            <span className="upload-hint">{t.uploadFormats}</span>
                         </div>
                     ) : (
                         <div className="image-container">
                             <img src={imageSrc} alt="Preview" style={filterStyle} className="preview-image" />
                             <button className="btn-secondary change-photo-btn" onClick={() => fileInputRef.current.click()}>
-                                Change Photo
+                                {t.changePhoto}
                             </button>
                         </div>
                     )}
@@ -101,11 +105,11 @@ function PhotoStudio() {
 
                 <div className="studio-controls-panel">
                     <div className="controls-card">
-                        <h3 className="controls-title">Adjustments</h3>
+                        <h3 className="controls-title">{t.adjustments}</h3>
 
                         <div className="slider-group">
                             <div className="slider-header">
-                                <label>Brightness</label>
+                                <label>{t.brightness}</label>
                                 <span>{brightness}%</span>
                             </div>
                             <input
@@ -120,7 +124,7 @@ function PhotoStudio() {
 
                         <div className="slider-group">
                             <div className="slider-header">
-                                <label>Contrast</label>
+                                <label>{t.contrast}</label>
                                 <span>{contrast}%</span>
                             </div>
                             <input
@@ -135,7 +139,7 @@ function PhotoStudio() {
 
                         <div className="slider-group">
                             <div className="slider-header">
-                                <label>Saturation</label>
+                                <label>{t.saturation}</label>
                                 <span>{saturation}%</span>
                             </div>
                             <input
@@ -150,7 +154,7 @@ function PhotoStudio() {
 
                         <div className="controls-actions">
                             <button className="btn-outline" onClick={handleReset} disabled={!imageSrc}>
-                                Reset
+                                {t.reset}
                             </button>
                             <button className="btn-primary" onClick={handleDownload} disabled={!imageSrc}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -158,7 +162,7 @@ function PhotoStudio() {
                                     <polyline points="7 10 12 15 17 10"></polyline>
                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                 </svg>
-                                Download
+                                {t.download}
                             </button>
                         </div>
                     </div>
