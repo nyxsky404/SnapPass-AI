@@ -38,6 +38,17 @@ function Navbar({ darkMode, toggleTheme }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
+
   const navLinks = [
     { path: '/', label: t.home },
     { path: '/studio', label: t.studio },
@@ -161,6 +172,7 @@ function Navbar({ darkMode, toggleTheme }) {
             }
             `}
           aria-label="Mobile navigation"
+          aria-hidden={!menuOpen}
         >
           <div className="navbar__mobile-language">
             <div className="navbar__desktop-language">
