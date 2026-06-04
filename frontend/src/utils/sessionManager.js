@@ -3,10 +3,14 @@ const HISTORY_KEY = 'passport_history';
 
 export const saveSession = (data) => {
   try {
+    // localUrl is a blob: URL — valid only in the current page lifecycle.
+    // Strip it before persisting so a stale blob string never causes a broken
+    // image preview when the session is restored after a page reload.
+    const { localUrl, ...persistable } = data;
     localStorage.setItem(
       SESSION_KEY,
       JSON.stringify({
-        ...data,
+        ...persistable,
         updatedAt: Date.now(),
       })
     );
@@ -39,8 +43,10 @@ export const clearSession = () => {
 export const saveSessionToHistory = (session) => {
   try {
     const history = getSessionHistory();
+    // Strip localUrl — blob: URLs are ephemeral and invalid after page reload.
+    const { localUrl, ...persistable } = session;
     const newSession = {
-      ...session,
+      ...persistable,
       id: Date.now().toString(),
       savedAt: Date.now(),
       status: session.status || 'draft',

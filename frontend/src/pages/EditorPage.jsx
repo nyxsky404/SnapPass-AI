@@ -24,8 +24,10 @@ function EditorPage({ darkMode, toggleTheme }) {
   const navigate = useNavigate();
   const savedSession = getSession();
 
+  // savedSession.localUrl is never persisted (blob URLs are ephemeral), so
+  // only trust localUrl from React Router navigation state (current page load).
   const [photoData, setPhotoData] = useState({
-    localUrl: state?.localUrl || savedSession?.localUrl,
+    localUrl: state?.localUrl || null,
     filename: state?.filename || savedSession?.filename,
     fileSize: state?.fileSize || savedSession?.fileSize,
   });
@@ -41,18 +43,17 @@ function EditorPage({ darkMode, toggleTheme }) {
   const { processImage, isProcessing, error } = useImageProcessor();
 
   useEffect(() => {
-    if (!photoData?.localUrl) return;
+    if (!photoData?.filename) return;
 
-    const sessionData = {
+    saveSession({
       step: 'editor',
-      localUrl: photoData.localUrl,
+      // localUrl is intentionally omitted — saveSession strips it anyway since
+      // blob: URLs do not survive a page reload.
       filename: photoData.filename,
       fileSize: photoData.fileSize,
       background,
       sizePreset,
-    };
-
-    saveSession(sessionData);
+    });
   }, [photoData, background, sizePreset]);
 
   const iconMap = {
