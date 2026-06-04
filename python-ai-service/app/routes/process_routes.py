@@ -49,11 +49,11 @@ def remove_bg():
             download_name=filename,
         )
     except ValueError as e:
-        # ValueError is raised for expected user-facing issues (e.g. invalid colour).
-        # Log at warning level and return only the message — no internal paths or
-        # library details that could aid an attacker.
+        # Log the original message server-side for debugging but return a
+        # fixed client message — ValueError can originate from third-party
+        # libraries (Pillow, rembg) whose messages may include internal paths.
         logger.warning("remove_bg validation error: %s", e)
-        return jsonify({"success": False, "message": str(e)}), 422
+        return jsonify({"success": False, "message": "Invalid image or processing parameters. Please check your input and try again."}), 422
     except Exception:
         # Log full traceback server-side; return a generic message to the client
         # so internal filesystem paths and library internals are never exposed.
