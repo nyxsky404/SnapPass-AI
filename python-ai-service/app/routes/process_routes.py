@@ -1,10 +1,12 @@
-import os
+import io
+import logging
 import uuid
 from flask import Blueprint, request, jsonify, send_file
-import config
 from app.services.bg_remove import remove_background
 from app.services.face_center import center_face
 from app.services.dpi_optimizer import optimise_dpi
+
+logger = logging.getLogger(__name__)
 process_bp= Blueprint("process", __name__)
 
 
@@ -34,18 +36,25 @@ def remove_bg():
         centered = center_face(result_bytes)
         final_image = optimise_dpi(centered, preset)
 
-        filename= f"{uuid.uuid4().hex}.png"
-        save_path= os.path.join(config.UPLOAD_DIR, filename)
-        with open(save_path, "wb") as f:
-            f.write(final_image)
-
+        # Stream result directly from memory — no temp file written to disk.
+        # This prevents unbounded disk growth from accumulated output images.
+        buf = io.BytesIO(final_image)
+        buf.seek(0)
+        download_name = f"{uuid.uuid4().hex}.png"
         return send_file(
-            save_path,
+            buf,
             mimetype="image/png",
             as_attachment=False,
-            download_name=filename,
+            download_name=download_name,
         )
     except ValueError as e:
+        # ValueError is raised for expected user-facing issues (e.g. invalid colour).
+        # Log at warning level and return only the message — no internal paths or
+        # library details that could aid an attacker.
+        logger.warning("remove_bg validation error: %s", e)
         return jsonify({"success": False, "message": str(e)}), 422
-    except Exception as e:
-        return jsonify({"success": False, "message": "Background removal failed.", "detail": str(e)}), 500
+    except Exception:
+        # Log full traceback server-side; return a generic message to the client
+        # so internal filesystem paths and library internals are never exposed.
+        logger.exception("Unhandled error in /remove-bg")
+        return jsonify({"success": False, "message": "Background removal failed. Please try again."}), 500
