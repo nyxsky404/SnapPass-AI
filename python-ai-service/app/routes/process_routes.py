@@ -1,6 +1,5 @@
 import io
 import logging
-import uuid
 from flask import Blueprint, request, jsonify, send_file
 from app.services.bg_remove import remove_background
 from app.services.face_center import center_face
@@ -38,21 +37,17 @@ def remove_bg():
 
         # Stream result directly from memory — no temp file written to disk.
         # This prevents unbounded disk growth from accumulated output images.
+        # as_attachment=False serves the image inline; download_name is omitted
+        # because it has no effect without as_attachment=True.
         buf = io.BytesIO(final_image)
         buf.seek(0)
-        download_name = f"{uuid.uuid4().hex}.png"
-        return send_file(
-            buf,
-            mimetype="image/png",
-            as_attachment=False,
-            download_name=download_name,
-        )
+        return send_file(buf, mimetype="image/png", as_attachment=False)
     except ValueError as e:
-        # ValueError is raised for expected user-facing issues (e.g. invalid colour).
-        # Log at warning level and return only the message — no internal paths or
-        # library details that could aid an attacker.
+        # Log the original message server-side for debugging but return a
+        # fixed client message — ValueError can originate from third-party
+        # libraries (Pillow, rembg) whose messages may include internal paths.
         logger.warning("remove_bg validation error: %s", e)
-        return jsonify({"success": False, "message": str(e)}), 422
+        return jsonify({"success": False, "message": "Invalid image or processing parameters. Please check your input and try again."}), 422
     except Exception:
         # Log full traceback server-side; return a generic message to the client
         # so internal filesystem paths and library internals are never exposed.
